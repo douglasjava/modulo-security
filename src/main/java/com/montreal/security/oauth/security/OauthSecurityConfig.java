@@ -72,7 +72,7 @@ public class OauthSecurityConfig {
         RegisteredClient clientCredentials = RegisteredClient
                 .withId("1")
                 .clientId("montreal")
-                .clientSecret(passwordEncoder.encode("123456"))
+                .clientSecret(passwordEncoder.encode("montreal"))
                 .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
                 .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
                 .scope("mi:external-read")

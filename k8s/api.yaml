@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: montrealappoauth
+  namespace: montreal
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: montrealappoauth
+  template:
+    metadata:
+      labels:
+        name: montrealappoauth
+    spec:
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: mypvc
+      containers:
+        - name: montrealappoauth
+          stdin: true
+          tty: true
+          resources:
+            limits:
+              memory: "450Mi"
+              cpu: "400m"
+            requests:
+              memory: "10Mi"
+              cpu: "10m"
+          image: mimontreal/montrealappoauth:TAGIMG
+          imagePullPolicy: Always
+          volumeMounts:
+            - name: data
+              mountPath: /organizations
+              subPath: organizations

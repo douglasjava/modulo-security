@@ -4,7 +4,24 @@ Este módulo de segurança implementa autenticação e autorização utilizando 
 Ele se integra com um banco de dados PostgreSQL para armazenar e gerenciar os detalhes dos clientes registrados. 
 Foi criado um client-id padrão mas é importante que cada negócio tenha a sua própria configuração.
 
-- **Padrão:**
+**CRIAÇÃO DE UM NOVO CLIENT-ID:**
+
+````curl
+curl --location 'http://localhost:8082/register-client-oauth2' \
+--header 'Content-Type: application/json' \
+--header 'Cookie: JSESSIONID=73A871A00A9AA9B9B70F21073FB2A797; SESSION=MzM5ZjkxZGEtODM4NC00Mjg2LWJkYjUtNjI1MDM5ZjViZGZm' \
+--data '{
+  "withId": "2",
+  "clientId": "douglas-test",
+  "clientSecret": "12345",
+  "scopes": [
+    "mi:teste-read"
+  ]
+}'
+````
+
+
+**Geração do TOKEK:**
 
 ```bash
 curl --location 'http://authorization-server.com:8082/oauth2/token' \
@@ -138,6 +155,15 @@ Uma chave JKS (Java KeyStore) é usada para assinar os tokens de acesso e atuali
 Isso garante que os tokens sejam autênticos e não tenham sido alterados durante a transmissão. A chave JKS é armazenada 
 com segurança e usada para verificar a integridade dos tokens durante o processo de autenticação.
 
+````
+- Criando
+  keytool -genkeypair -alias edpvalidate -keyalg RSA -keypass 123456 -keystore edpvalidate.jks -storepass 123456 -validity 3560
+
+- Validando
+  keytool -list -keystore edpvalidate.jks
+
+````
+
 ## Configuração
 
 Para configurar e executar este módulo de segurança:
@@ -154,6 +180,15 @@ Para configurar e executar este módulo de segurança:
 - Spring Data JPA
 - PostgreSQL
 - JKS (Java KeyStore)
+
+
+#### Run with docker
+````
+docker-compose -f docker-compose-dev.yml up
+docker-compose -f docker-compose-test.yml up
+docker-compose -f docker-compose-prd.yml up
+
+````
 
 #### Diagramas
 

@@ -13,13 +13,14 @@
 	<groupId>com.montreal.security</groupId>
 	<artifactId>oauth</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>edp</name>
+	<name>oauth</name>
 	<description>Project responsible for managing secure access to Montreal's internal api</description>
 
 	<properties>
 		<java.version>17</java.version>
 		<spring-jdbc.version>6.1.2</spring-jdbc.version>
 		<postgresql.version>42.7.1</postgresql.version>
+		<springdoc.version>2.0.4</springdoc.version>
 	</properties>
 
 	<dependencies>

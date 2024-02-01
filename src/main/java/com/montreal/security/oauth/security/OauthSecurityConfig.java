@@ -16,6 +16,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.core.AuthorizationGrantType;
 import org.springframework.security.oauth2.core.ClientAuthenticationMethod;
@@ -60,7 +61,9 @@ public class OauthSecurityConfig {
         http.authorizeHttpRequests(auth -> auth
                 .requestMatchers("/actuator/**").permitAll()
                 .requestMatchers("/h2/**").permitAll()
-                .anyRequest().authenticated());
+                .requestMatchers("/register-client-oauth2/**").permitAll()
+                .anyRequest().authenticated())
+                .csrf(AbstractHttpConfigurer::disable);
 
         return http.formLogin(Customizer.withDefaults()).build();
     }
